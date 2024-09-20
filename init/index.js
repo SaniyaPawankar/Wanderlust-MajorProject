@@ -1,41 +1,3 @@
-// const mongoose = require("mongoose");
-// const initData = require("./data.js");
-// const Listing = require("../models/listing.js");
-// if(process.env.NODE_ENV != "production"){
-//     require("dotenv").config();
-// }
-
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-// const dbUrl = process.env.ATLASDB_URL;
-
-// main().then(() => {
-//     console.log("connected to DB");
-// }).catch((err) => {
-//     console.log(err);
-// });
-
-
-
-// async function main(){
-//     await mongoose.connect(dbUrl);
-// }
-
-// const initDB = async () => {
-//     await Listing.deleteMany();
-//     /* here data is a array*/
-//     initData.data = initData.data.map((obj) => ({...obj, owner: "66b8ba897c928a693bfd5e32"}))
-//     await Listing.insertMany(initData.data);
-//     console.log("data was initialized");
-// }
-
-// initDB();
-
-/*index.js helps to initialize the database*/
-
-
-/*Updated Code*/ 
-ATLASDB_URL= "mongodb+srv://saniyapawankar:eJ7jtECeGempQUYY@cluster0.lmlct.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-SECRET_CODE= "kjbsdfvyqvkh"
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
@@ -61,12 +23,9 @@ async function main() {
         console.error("Error connecting to DB:", err);
     } finally {
         // Close the connection after the operation is complete
-        mongoose.connection.close();
+        await mongoose.connection.close();
+        console.log("Connection closed");
     }
-}
-
-async function main(){
-    await mongoose.connect(dbUrl);
 }
 
 const initDB = async () => {
@@ -76,7 +35,7 @@ const initDB = async () => {
         // Modify the data as needed
         const dataWithOwner = initData.data.map((obj) => ({
             ...obj,
-            owner: "66b8ba897c928a693bfd5e32" // Replace with actual owner ID
+            owner: "66b8ba897c928a693bfd5e32", // Replace with actual owner ID
         }));
 
         await Listing.insertMany(dataWithOwner);
@@ -86,7 +45,6 @@ const initDB = async () => {
     }
 };
 
+// Start the process
 main();
-
-initDB();
 
