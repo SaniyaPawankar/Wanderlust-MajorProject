@@ -6,6 +6,7 @@ if(process.env.NODE_ENV != "production"){
 
 const express = require("express");
 const app = express();
+const sampleListings = require("./init/data.js");
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
@@ -16,6 +17,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+import data from "./init/data.js";
 
 const ExpressError = require("./utils/ExpressError.js");
 const listingRouter = require("./routes/listing.js");
@@ -43,6 +45,18 @@ app.use(express.urlencoded({ extended: true }));//parsing of form data
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);//similar  like includes and partial in ejs
 app.use(express.static(path.join(__dirname, "/public")));//to use static file public
+
+app.get('/api/listings', (req, res) => {
+    Listing.find()
+      .then(listings => {
+        if (listings.length === 0) {
+          res.json(sampleListings);
+        } else {
+          res.json(listings);
+        }
+      })
+      .catch(err => res.status(500).json({ error: 'An error occurred' }));
+  });
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -77,6 +91,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
+
+app.get()
 
 
 
@@ -195,8 +211,12 @@ app.get("/", (req, res) => {
 });
 
 
+
+
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
 });
+
+
 
 
