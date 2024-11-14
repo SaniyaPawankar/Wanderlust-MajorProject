@@ -1,3 +1,4 @@
+/* Global styles for all screens */
 body {
   font-family: "Plus Jakarta Sans", sans-serif !important;
   display: flex;
@@ -6,9 +7,10 @@ body {
 }
 
 .container {
-  flex: 1; /* container class occupies the entire height */
+  flex: 1; /*container class occupies the entire height*/
 }
 
+/* Navbar */
 .navbar {
   height: 5rem;
   background-color: white;
@@ -23,6 +25,7 @@ body {
   color: #030303 !important;
 }
 
+/* Footer */
 .f-info-links a {
   text-decoration: none;
   color: #222222;
@@ -93,11 +96,6 @@ body {
   background-color: white;
 }
 
-.add-btn {
-  background-color: #fe424d !important;
-  border: none !important;
-}
-
 /* Edit Page */
 .edit-btn {
   background-color: #fe424d !important;
@@ -124,35 +122,81 @@ body {
   width: 80vh;
 }
 
-/* Media Queries from Friend's Code */
-@media (max-width: 600px) {
+/* Responsive Media Queries */
+
+/* Large devices (desktops, 1024px and up) */
+@media (max-width: 1024px) {
+  .listing-card {
+      flex-basis: 48%; /* Two cards per row */
+  }
+  .navbar, .footer {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .listing-card {
+      flex-basis: 100%; /* One card per row */
+  }
+  .navbar {
+      flex-direction: column;
+      text-align: center;
+  }
+  .f-info {
+      flex-direction: column;
+      text-align: center;
+      padding: 1rem;
+  }
+  .show-img {
+      height: 40vh;
+  }
+  #map {
+      height: 300px;
+      width: 100%;
+  }
   .btns {
       flex-direction: column;
       align-items: center;
   }
-  .edit-btn {
-      width: 100%;
-  }
 }
 
-@media (max-width: 668px) {
+/* Small devices (phones, less than 600px) */
+@media (max-width: 600px) {
+  .listing-card {
+      flex-basis: 100%; /* Single column layout */
+  }
+  .navbar, .footer {
+      flex-direction: column;
+      text-align: center;
+  }
+  .nav-link, .fa-compass {
+      font-size: 1.5rem;
+  }
   .f-info-socials i {
-      font-size: 1rem;
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
   }
-}
-
-@media (max-width: 767px) {
-  .f-info {
+  .f-info-links,
+  .f-info-socials,
+  .f-info-brand {
+      width: auto;
+      flex-direction: column;
+      align-items: center;
+  }
+  .btns {
       flex-direction: column;
   }
+  .card-body p, .card-text p {
+      font-size: 0.9rem;
+  }
   #map {
+      height: 250px;
       width: 100%;
-      height: 300px !important;
   }
-  .show-card {
-      margin: 0;
-  }
-  .card-text p {
-      font-size: small;
+  .edit-btn, .add-btn {
+      width: 100%;
+      font-size: 1rem;
   }
 }
