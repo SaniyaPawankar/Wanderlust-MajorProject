@@ -1,13 +1,14 @@
-body{
-    font-family: "Plus Jakarta Sans", sans-serif !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.container{
-  flex: 1; /*container class occupied the entire height*/
+.container {
+  flex: 1; /* container class occupies the entire height */
 }
+
 .navbar {
   height: 5rem;
   background-color: white;
@@ -18,39 +19,38 @@ body{
   font-size: 2rem;
 }
 
-.nav-link{
+.nav-link {
   color: #030303 !important;
 }
 
-.f-info-links a{
+.f-info-links a {
   text-decoration: none;
   color: #222222;
 }
 
-.f-info-links a:hover{
+.f-info-links a:hover {
   text-decoration: underline;
 }
 
 .f-info-links,
 .f-info-socials,
-.f-info-brand{
+.f-info-brand {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.f-info-socials{
+.f-info-socials {
   width: 100%;
- 
 }
 
-.f-info-socials i{
+.f-info-socials i {
   font-size: 1.5rem;
   margin-right: 1rem;
 }
 
-.f-info{
+.f-info {
   text-align: center;
   height: 8rem;
   background-color: #ebebeb;
@@ -58,69 +58,101 @@ body{
   flex-wrap: wrap;
   justify-content: center;
   align-items: space-evenly;
-
 }
 
-/*Cards*/
-.listing-card{
+/* Cards */
+.listing-card {
   border: none !important;
   margin-bottom: 2rem;
 }
 
-.card-img-top{
+.card-img-top {
   border-radius: 1rem !important;
   width: 100% !important;
   object-fit: cover !important;
 }
 
-.card-body{
+.card-body {
   padding: 0 !important;
 }
 
-.card-text p{
+.card-text p {
   font-weight: 400 !important;
 }
 
-.listing-link{
+.listing-link {
   text-decoration: none;
 }
 
-.card-img-overlay{
+.card-img-overlay {
   opacity: 0;
 }
 
-.card-img-overlay:hover{
+.card-img-overlay:hover {
   opacity: 0.2;
   background-color: white;
 }
 
-.add-btn{
+.add-btn {
   background-color: #fe424d !important;
   border: none !important;
 }
 
-/*Edit Page*/
-.edit-btn{
+/* Edit Page */
+.edit-btn {
   background-color: #fe424d !important;
   border: none !important;
 }
 
-/*Show Page*/
-.show-img{
+/* Show Page */
+.show-img {
   height: 30vh;
 }
 
-.btns{
+.btns {
   display: flex;
 }
 
-.show-card{
+.show-card {
   padding-left: 0;
   padding-right: 0;
 }
 
-/*Map*/
-#map{
-    height: 400px;
-    width: 80vh;
+/* Map */
+#map {
+  height: 400px;
+  width: 80vh;
+}
+
+/* Media Queries from Friend's Code */
+@media (max-width: 600px) {
+  .btns {
+      flex-direction: column;
+      align-items: center;
+  }
+  .edit-btn {
+      width: 100%;
+  }
+}
+
+@media (max-width: 668px) {
+  .f-info-socials i {
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .f-info {
+      flex-direction: column;
+  }
+  #map {
+      width: 100%;
+      height: 300px !important;
+  }
+  .show-card {
+      margin: 0;
+  }
+  .card-text p {
+      font-size: small;
+  }
 }
