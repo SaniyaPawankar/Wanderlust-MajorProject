@@ -180,9 +180,9 @@ app.use("/", userRouter);
 
 
 //Throwing new ExpressError 
-app.all("*", (req, res, next) => {
-    next(new ExpressError(404, "Page Not Found!"));
-});
+// app.all("*", (req, res, next) => {
+//     next(new ExpressError(404, "Page Not Found!"));
+// });
 
 app.use((err, req, res, next) => {
     /*The above express error will be catched here and further actions get performed*/

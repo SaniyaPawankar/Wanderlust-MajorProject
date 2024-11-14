@@ -12,19 +12,14 @@ const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
 async function main() {
     try {
-        await mongoose.connect(dbUrl, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(dbUrl);  // Simply pass the dbUrl without deprecated options
         console.log("Connected to DB");
 
         await initDB();
     } catch (err) {
         console.error("Error connecting to DB:", err);
     } finally {
-        // Close the connection after the operation is complete
-        await mongoose.connection.close();
-        console.log("Connection closed");
+        mongoose.connection.close();  // Close connection after initialization
     }
 }
 

@@ -4,50 +4,27 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+module.exports.index = async (req, res) => {
+    try {
+        let search = req.query.search;
+        let allListings = await Listing.find().populate("reviews");
 
+        // Implement search filtering
+        if (search) {
+            allListings = allListings.filter(listing => 
+                listing.title.toLowerCase().includes(search.toLowerCase()) ||
+                listing.country.toLowerCase().includes(search.toLowerCase()) ||
+                listing.location.toLowerCase().includes(search.toLowerCase())
+            );
+        }
 
-module.exports.index= (async (req,res)=>{
-    let search  = req.query.search;
-    let allListings = await Listing.find().populate("reviews");
-    res.render("listings/index.ejs",{allListings,search});
-  });
-// module.exports.index = async (req, res) => {
-//     try {
-//         // Extract the country query parameter
-//         const { country } = req.query;
-        
-//         // Fetch all listings from the database
-//         const allListings = await Listing.find({});
-        
-//         // Log the query parameter and the number of listings fetched
-//         console.log("Query Parameter - country:", country);
-//         console.log(`Total listings fetched: ${allListings.length}`);
-        
-//         // Filter listings based on the country parameter
-//         const countryListing = country
-//             ? allListings.filter((listing) => 
-//                 listing.country &&
-//                 listing.country.toLowerCase() === country.toLowerCase()
-//             )
-//             : allListings;
-        
-//         // Log the number of listings after filtering
-//         console.log(`Listings after filtering: ${countryListing.length}`);
-        
-//         // Check if no listings match the filter criteria
-//         if (countryListing.length === 0) {
-//             req.flash("error", `No listings available in ${country}`);
-//             return res.redirect("/listings");
-//         }
-        
-//         // Render the listings page with filtered data
-//         // res.render("listings/index.ejs", { allListings: countryListing });
-//     } catch (err) {
-//         console.error("Error fetching listings:", err);
-//         req.flash("error", "Something went wrong. Please try again later.");
-//         res.redirect("/listings");
-//     }
-// };
+        res.render("listings/index.ejs", { allListings, search });
+    } catch (err) {
+        console.error("Error fetching listings:", err);
+        req.flash("error", "Something went wrong while fetching listings.");
+        res.redirect("/listings");
+    }
+};
 
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
@@ -67,7 +44,8 @@ module.exports.showListings = async (req, res) => {
             req.flash("error", "Listing you requested for does not exist.");
             return res.redirect("/listings");
         }
-console.log(listing); // check in your terminal listing coordinates exists or not?
+
+        console.log(listing); // Check in your terminal if listing coordinates exist or not
 
         res.render("listings/show.ejs", { listing });
     } catch (err) {
